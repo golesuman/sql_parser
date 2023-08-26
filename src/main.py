@@ -1,6 +1,5 @@
 import sys
-from tokens import generate_token
-
+from tokens  import generate_token
 class SQLParser:
     def __init__(self, sql):
         self.tokens = sql.split()
@@ -97,7 +96,7 @@ if __name__ == "__main__":
     #     sys.exit(1)
     #
     # sql_statement = sys.argv[1]
-    sql_statement = "UPDATE table1 SET column1 = 'new_value' WHERE column2 = 'condition'"
+    sql_statement = "SELECT * FROM table1"
 
     parser = SQLParser(sql_statement)
 
