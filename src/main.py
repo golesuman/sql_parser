@@ -1,3 +1,23 @@
+"""
+<SQL> ::= <SQL_STMT>
+<SQL_STMT> ::= <SELECT_STMT> | <INSERT_STMT> | <UPDATE_STMT>
+<SELECT_STMT> ::= "SELECT" <COLUMN> "FROM" <TABLE>
+<INSERT_STMT> ::= "INSERT" "INTO" <TABLE> "VALUES" "(" <VALUES> ")"
+<UPDATE_STMT> ::= "UPDATE" <TABLE> "SET" <COLUMN> "=" <EXPRESSION> "WHERE" <EXPRESSION>
+<COLUMN> ::= "*" | <IDENTIFIER>
+<TABLE> ::= <IDENTIFIER>
+<VALUES> ::= <IDENTIFIER> "," <VALUES> | <IDENTIFIER>
+<EXPRESSION> ::= <IDENTIFIER> <OPERATOR> <LITERAL>
+<OPERATOR> ::= "="
+<IDENTIFIER> ::= "column1" | "column2" | "table1" | "table2"
+<LITERAL> ::= <INTEGER_LITERAL> | <STRING_LITERAL>
+<INTEGER_LITERAL> ::= <digit>+
+<STRING_LITERAL> ::= '"' <character>* '"'
+<digit> ::= "0" | "1" | ... | "9"
+<character> ::= any valid character
+"""
+
+
 import logging
 import sys
 from tokens import generate_token
