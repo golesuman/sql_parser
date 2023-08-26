@@ -1,3 +1,4 @@
+import logging
 import sys
 from tokens  import generate_token
 class SQLParser:
@@ -74,6 +75,8 @@ class SQLParser:
         if self.tokens[0] == 'WHERE':
             self.tokens.pop(0)  # Consume 'WHERE'
             return self.EXPRESSION()
+        logging.error(f"Syntax error near {self.tokens[0]}")
+
         return True  # WHERE clause is optional
 
     def EXPRESSION(self):
@@ -87,16 +90,17 @@ class SQLParser:
         if self.tokens and self.tokens[0] in ['column1', 'column2', 'table1', 'table2']:
             self.tokens.pop(0)  # Consume the identifier
             return True
+        logging.error(f"Table {self.tokens[0]} doesn't exist")
         return False
 
 
 if __name__ == "__main__":
-    # if len(sys.argv) != 2:
-    #     print("Usage: python sql_parser.py <SQL_statement>")
-    #     sys.exit(1)
-    #
-    # sql_statement = sys.argv[1]
-    sql_statement = "SELECT * FROM table1"
+    if len(sys.argv) != 2:
+        print("Usage: python sql_parser.py <SQL_statement>")
+        sys.exit(1)
+    
+    sql_statement = sys.argv[1]
+    # sql_statement = "SELECT * FROM table2"
 
     parser = SQLParser(sql_statement)
 
