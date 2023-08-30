@@ -7,7 +7,7 @@ def generate_token(text):
         if re.match("^[a-zA-Z]$", char):
             result.append(char)
         else:
-            raise SyntaxError(f"Expected string but got {char}")
+            raise SyntaxError(f"Expected string but got '{char}'")
     return "".join(result).upper()
 
 
