@@ -132,7 +132,7 @@ class SQLParser:
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("Usage: python sql_parser.py <SQL_statement>")
+        print("Usage: main.py <SQL_statement>")
         sys.exit(1)
 
     sql_statement = sys.argv[1]
