@@ -136,8 +136,6 @@ if __name__ == "__main__":
         sys.exit(1)
 
     sql_statement = sys.argv[1]
-    sql_statement = "SELECT * FROM table2"
-
     parser = SQLParser(sql_statement)
 
     # Parse the SQL statement
