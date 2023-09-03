@@ -90,24 +90,34 @@ class SQLParser:
     def SET_CLAUSE(self):
         if self.tokens[0] == "SET":
             self.tokens.pop(0)  # Consume 'SET'
-            return self.COLUMN() and "=" in self.tokens and self.EXPRESSION()
+            return self.COLUMN() and self.OPERATION() and self.WHERE_CLAUSE()
         return False
 
     def WHERE_CLAUSE(self):
+        if len(self.tokens) < 1:
+            logging.error(f"Expected clause or a variable got None")
+            return False
+
         if self.tokens[0] == "WHERE":
             self.tokens.pop(0)  # Consume 'WHERE'
             return self.EXPRESSION()
-        logging.error(f"Syntax error near {self.tokens[0]}")
-
         return True  # WHERE clause is optional
 
+    def OPERATION(self):
+        if self.tokens[0] == "=":
+            self.tokens.pop(0)  # Consume '='
+            return self.EXPRESSION()
+
     def EXPRESSION(self):
-        # This is a simplified expression check
-        return (
-            "IDENTIFIER" in self.tokens
-            and "OPERATOR" in self.tokens
-            and "LITERAL" in self.tokens
-        )
+        if len(self.tokens) < 1:
+            logging.error(f"Error near = ")
+            return False
+        if type(self.tokens[0]) == str:
+            return True
+
+        return False
+
+
 
     def TABLE(self):
         return self.IDENTIFIER()
@@ -126,7 +136,7 @@ if __name__ == "__main__":
         sys.exit(1)
 
     sql_statement = sys.argv[1]
-    # sql_statement = "SELECT * FROM table2"
+    sql_statement = "SELECT * FROM table2"
 
     parser = SQLParser(sql_statement)
 
